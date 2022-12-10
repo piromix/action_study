@@ -14,6 +14,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       
+      - name: File and Replace
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "example.com"
+          replace: "replace.com"
+          regex: false
+        
       - name: Output file contents
         run: |
           cat ./test.conf
