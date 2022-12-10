@@ -19,6 +19,7 @@ jobs:
         with:
           find: "example.com"
           replace: "replace.com"
+          include: "(**\/test.conf)"
           regex: false
         
       - name: Output file contents
