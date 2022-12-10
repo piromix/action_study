@@ -1,7 +1,7 @@
 name: lean-github-actions
 on: [push]
 jobs:
-  check-bats-version:
+  replace-and-upload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
