@@ -19,9 +19,9 @@ jobs:
         with:
           find: "example.com"
           replace: "replace.com"
-          include: "(**\/test.conf)"
+          include: "subdir/test.conf"
           regex: false
         
       - name: Output file contents
         run: |
-          cat ./test.conf
+          cat ./test.conf ./subdir/test.conf
