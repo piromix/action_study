@@ -30,7 +30,7 @@ jobs:
         run: |
           cat ./test.conf ./subdir/test.conf
           
-      - name: create aritifacts archive
+      - name: create artifacts archive
         run: |
           tar zcvf artifacts.tar.gz test.conf subdir/
       
