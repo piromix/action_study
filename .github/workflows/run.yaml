@@ -41,6 +41,7 @@ jobs:
           mv subdir \
           subdir-${{ github.event.inputs.env }} &&
           ls -la
+        if: ${{ github.event.inputs.env }} != "prod"
 
 #      - name: create artifacts archive
 #        run: |
