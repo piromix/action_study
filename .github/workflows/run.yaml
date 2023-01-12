@@ -14,34 +14,37 @@ jobs:
   replace-and-upload:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.5.0
-        
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
-      
-      - name: File and Replace
-        uses: jacobtomlinson/gha-find-replace@v2
-        with:
-          find: "alert@example.com"
-          replace: "alert@replace.com"
-          include: "subdir/test.conf"
-          regex: false
+#      - name: Checkout
+#        uses: actions/checkout@v2.5.0
+#
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+#          aws-region: ap-northeast-1
+#
+#      - name: File and Replace
+#        uses: jacobtomlinson/gha-find-replace@v2
+#        with:
+#          find: "alert@example.com"
+#          replace: "alert@replace.com"
+#          include: "subdir/test.conf"
+#          regex: false
         
 #      - name: Output file contents
 #        run: |
 #          cat ./test.conf ./subdir/test.conf
 
-      - name: test change dir
-        if: ${{ github.event.inputs.env != 'prod' }}
+      - name: test
         run: |
-          mv subdir \
-          subdir-${{ github.event.inputs.env }} &&
-          ls -la
+          echo "env test:${{ github.event.inputs.env == 'prod' && '-' || github.event.inputs.env }}"
+#      - name: test change dir
+#        if: ${{ github.event.inputs.env != 'prod' }}
+#        run: |
+#          mv subdir \
+#          subdir-${{ github.event.inputs.env }} &&
+#          ls -la
 
 #      - name: create artifacts archive
 #        run: |
