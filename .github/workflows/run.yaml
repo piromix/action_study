@@ -1,8 +1,14 @@
 name: lean-github-actions
+
 on:
-  push:
-    tags:
-      - '*-dev'
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        options:
+          - dev
+          - sta
+          - prod
 
 jobs:
   replace-and-upload:
@@ -26,17 +32,22 @@ jobs:
           include: "subdir/test.conf"
           regex: false
         
-      - name: Output file contents
+#      - name: Output file contents
+#        run: |
+#          cat ./test.conf ./subdir/test.conf
+
+      - name: test change dir
         run: |
-          cat ./test.conf ./subdir/test.conf
-          
-      - name: create artifacts archive
-        run: |
-          tar zcvf artifacts.tar.gz test.conf subdir/
-      
-      - name: Upload file to s3
-        env:
-          S3_UPLOAD_BUCKET: ${{ secrets.S3_UPLOAD_BUCKET }}
-        run: |
-          aws s3 cp artifacts.tar.gz s3://$S3_UPLOAD_BUCKET/ --quiet
+          mv subdir \
+          subdir-${{ github.event.inputs.env }}
+
+#      - name: create artifacts archive
+#        run: |
+#          echo "tar zcvf artifacts-$(date +%y%m%d)-dev.tar.gz test.conf subdir/"
+#
+#      - name: Upload file to s3
+#        env:
+#          S3_UPLOAD_BUCKET: ${{ secrets.S3_UPLOAD_BUCKET }}
+#        run: |
+#          aws s3 cp artifacts.tar.gz s3://$S3_UPLOAD_BUCKET/ --quiet
           
