@@ -39,7 +39,8 @@ jobs:
       - name: test change dir
         run: |
           mv subdir \
-          subdir-${{ github.event.inputs.env }}
+          subdir-${{ github.event.inputs.env }} &&
+          ls -la
 
 #      - name: create artifacts archive
 #        run: |
